@@ -81,29 +81,40 @@ has 'username' => (
     required => 1
 );
 
+=method get_space ($id)
+
+Get Space information.
+
+=cut
+
+sub get_space {
+    my ($self, $id) = @_;
+
+    my $req = $self->make_req('/spaces/'.$id);
+    my $resp = $self->_client->request($req);
+
+    # print STDERR $resp->decoded_content;
+
+    my $xp = XML::XPath->new(xml => $resp->decoded_content);
+
+    my $spaces = $xp->find('/space');
+    my $space = $spaces->pop;
+    my $name = $space->findvalue('name')."";
+
+    my $obj = API::Assembla::Space->new(
+        id => $space->findvalue('id').'',
+        created_at => DateTime::Format::ISO8601->parse_datetime($space->findvalue('created-at').''),
+        name => $name,
+        description => $space->findvalue('description').'',
+    );
+
+    return $obj;
+}
+
 =method get_spaces
 
-Get Space information.  Returns a hashref with the following keys
-
-=over 4
-
-=item third-level-domain
-
-=item name
-
-=item plan-id
-
-=item time-zone
-
-=item owner-id
-
-=item suspended
-
-=item id
-
-=item updated-at
-
-=back
+Get Space information.  Returns a hashref of L<API::Assembla::Space> objects
+keyed by the space's name.
 
 =cut
 
@@ -113,7 +124,7 @@ sub get_spaces {
     my $req = $self->make_req('/spaces/my_spaces');
     my $resp = $self->_client->request($req);
 
-    print STDERR $resp->decoded_content;
+    # print STDERR $resp->decoded_content;
 
     my $xp = XML::XPath->new(xml => $resp->decoded_content);
 

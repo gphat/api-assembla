@@ -12,9 +12,18 @@ my $data = $api->get_spaces;
 cmp_ok(2, '==', scalar(keys($data)), '2 spaces');
 ok(exists($data->{PRG}), 'PRG space');
 
-my $space = $data->{PRG};
-cmp_ok('PRG', 'eq', $space->name, 'space name');
-cmp_ok('dhHT8ENtKr4k_1eJe4gwI3', 'eq', $space->id, 'space id');
-cmp_ok('2011-06-22', 'eq', $space->created_at->ymd, 'space created_at');
+{
+    my $space = $data->{PRG};
+    cmp_ok('PRG', 'eq', $space->name, 'space name');
+    cmp_ok('dhHT8ENtKr4k_1eJe4gwI3', 'eq', $space->id, 'space id');
+    cmp_ok('2011-06-22', 'eq', $space->created_at->ymd, 'space created_at');
+}
+
+{
+    my $space = $api->get_space('dhHT8ENtKr4k_1eJe4gwI3');
+    cmp_ok('PRG', 'eq', $space->name, 'space name');
+    cmp_ok('dhHT8ENtKr4k_1eJe4gwI3', 'eq', $space->id, 'space id');
+    cmp_ok('2011-06-22', 'eq', $space->created_at->ymd, 'space created_at');
+}
 
 done_testing;
