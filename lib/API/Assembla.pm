@@ -7,6 +7,7 @@ use URI;
 use XML::XPath;
 
 use API::Assembla::Space;
+use API::Assembla::Ticket;
 
 # ABSTRACT: Acess to Assembla API via Perl.
 
@@ -140,6 +141,41 @@ sub get_spaces {
             created_at => DateTime::Format::ISO8601->parse_datetime($space->findvalue('created-at').''),
             name => $name,
             description => $space->findvalue('description').'',
+        );
+    }
+
+    return \%objects;
+}
+
+=method get_tickets ($id)
+
+Get Tickets for a space information.
+
+=cut
+
+sub get_tickets {
+    my ($self, $id) = @_;
+
+    my $req = $self->make_req('/spaces/'.$id.'/tickets');
+    my $resp = $self->_client->request($req);
+
+    # print STDERR $resp->decoded_content;
+
+    my $xp = XML::XPath->new(xml => $resp->decoded_content);
+
+    my $tickets = $xp->find('/tickets/ticket');
+
+    my %objects = ();
+    foreach my $ticket ($tickets->get_nodelist) {
+
+        my $id = $ticket->findvalue('id').'';
+
+        $objects{$id} = API::Assembla::Ticket->new(
+            id => $id,
+            created_on => DateTime::Format::ISO8601->parse_datetime($ticket->findvalue('created-on').''),
+            description => $ticket->findvalue('description').'',
+            status_name => $ticket->findvalue('status-name').'',
+            summary => $ticket->findvalue('summary').''
         );
     }
 

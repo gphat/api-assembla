@@ -1,9 +1,15 @@
 package API::Assembla::Space;
 use Moose;
 
-# ABSTRACT: Profile based data verification with Moose type constraints.
+# ABSTRACT: A Space in Assembla
 
 =head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+Assembla XXX
+
+=cut
 
 =attr created_at
 
@@ -48,12 +54,6 @@ has 'name' => (
     is => 'rw',
     isa => 'Str'
 );
-
-=head1 DESCRIPTION
-
-Assembla XXX
-
-=cut
 
 __PACKAGE__->meta->make_immutable;
 
