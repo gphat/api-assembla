@@ -124,8 +124,9 @@ sub get_spaces {
         my $name = $space->findvalue('name')."";
 
         $objects{$name} = API::Assembla::Space->new(
+            id => $space->findvalue('id').'',
             name => $name,
-            description => $space->findvalue('description').''
+            description => $space->findvalue('description').'',
         );
     }
 

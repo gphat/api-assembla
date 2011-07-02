@@ -14,5 +14,6 @@ ok(exists($data->{PRG}), 'PRG space');
 
 my $space = $data->{PRG};
 cmp_ok('PRG', 'eq', $space->name, 'space name');
+cmp_ok('dhHT8ENtKr4k_1eJe4gwI3', 'eq', $space->id, 'space id');
 
 done_testing;

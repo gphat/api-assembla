@@ -16,6 +16,17 @@ has 'description' => (
     isa => 'Str'
 );
 
+=attr id
+
+The space's id.
+
+=cut
+
+has 'id' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
 =attr name
 
 The space's name.
