@@ -9,7 +9,7 @@ use XML::XPath;
 use API::Assembla::Space;
 use API::Assembla::Ticket;
 
-# ABSTRACT: Acess to Assembla API via Perl.
+# ABSTRACT: Access to Assembla API via Perl.
 
 =head1 SYNOPSIS
 
@@ -21,12 +21,20 @@ use API::Assembla::Ticket;
         password => $password
     );
 
-    my $href = $api->get_space;
+    my $href_of_spaces = $api->get_spaces;
+    # Got an href of API::Assembla::Space objects keyed by space id
+    my $space = $api->get_space($space_id);
+    # Got an API::Assembla::Space object
 
+    my $href_of_tickets = $api->get_tickets;
+    # Got an href of API::Assembla::Space objects keyed by ticket id
+    my $ticket = $api->get_ticket($space_id, $ticket_number);
+    # Got an API::Assembla::Ticket object
 
 =head1 DESCRIPTION
 
-Assembla XXX
+API::Assembla is a Perl interface to L<Assembla|http://www.assembla.com/>, a
+ticketing, code hosting collaboration tool.
 
 =cut
 
@@ -225,13 +233,4 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
-
-
-=begin :postlude
-
-=head1 CONTRIBUTORS
-
-Me
-
-=end :postlude
 
