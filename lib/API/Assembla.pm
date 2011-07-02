@@ -35,12 +35,16 @@ use API::Assembla::Ticket;
 API::Assembla is a Perl interface to L<Assembla|http://www.assembla.com/>, a
 ticketing, code hosting collaboration tool.
 
+=begin :prelude
+
 =head1 UNDER CONSTRUCTION
 
 API::Assembla is not feature-complete.  It's a starting point.  The Assembla
 API has LOTS of stuff that this module does not yet contain.  These features
 will be added as needed by the author or as gifted by thoughtful folks who
 write patches! ;)
+
+=end :prelude
 
 =cut
 

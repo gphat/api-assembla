@@ -6,6 +6,13 @@ API::Assembla - Access to Assembla API via Perl.
 
 version 0.01
 
+# UNDER CONSTRUCTION
+
+API::Assembla is not feature-complete.  It's a starting point.  The Assembla
+API has LOTS of stuff that this module does not yet contain.  These features
+will be added as needed by the author or as gifted by thoughtful folks who
+write patches! ;)
+
 # SYNOPSIS
 
     use API::Assembla;
@@ -64,13 +71,6 @@ Get Tickets for a space information.
 ## get_tickets ($space_id)
 
 Get Tickets for a space information.
-
-# UNDER CONSTRUCTION
-
-API::Assembla is not feature-complete.  It's a starting point.  The Assembla
-API has LOTS of stuff that this module does not yet contain.  These features
-will be added as needed by the author or as gifted by thoughtful folks who
-write patches! ;)
 
 # AUTHOR
 
