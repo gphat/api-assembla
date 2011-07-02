@@ -5,7 +5,7 @@ use LWP::UserAgent;
 use URI;
 use XML::XPath;
 
-# ABSTRACT: Profile based data verification with Moose type constraints.
+# ABSTRACT: Acess to Assembla API via Perl.
 
 =head1 SYNOPSIS
 
@@ -17,7 +17,7 @@ use XML::XPath;
         password => $password
     );
 
-    my $href = $api->get_account;
+    my $href = $api->get_space;
 
 
 =head1 DESCRIPTION
