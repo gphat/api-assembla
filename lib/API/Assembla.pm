@@ -5,6 +5,8 @@ use LWP::UserAgent;
 use URI;
 use XML::XPath;
 
+use API::Assembla::Space;
+
 # ABSTRACT: Acess to Assembla API via Perl.
 
 =head1 SYNOPSIS
@@ -114,23 +116,20 @@ sub get_spaces {
 
     my $xp = XML::XPath->new(xml => $resp->decoded_content);
 
-    my $foo = $xp->find('/spaces/space/name');
+    my $spaces = $xp->find('/spaces/space');
 
-    foreach my $node ($foo->get_nodelist) {
-        use Data::Dumper;
-        print STDERR Dumper($node);
+    my %objects = ();
+    foreach my $space ($spaces->get_nodelist) {
+
+        my $name = $space->findvalue('name')."";
+
+        $objects{$name} = API::Assembla::Space->new(
+            name => $name,
+            description => $space->findvalue('description').''
+        );
     }
 
-    return {
-        # 'third-level-domain' => $data->{'third-level-domain'},
-        # 'name' => $data->{name},
-        # 'plan-id' => $data->{'plan-id'}->{content},
-        # 'time-zone' => $data->{'time-zone'},
-        # 'owner-id' => $data->{'owner-id'}->{content},
-        # 'suspended' => $data->{suspended}->{content} eq 'true' ? 1 : 0,
-        # 'id' => $data->{id}->{content},
-        # 'updated-at' => $data->{'updated-at'}->{content}
-    };
+    return \%objects;
 }
 
 sub make_req {

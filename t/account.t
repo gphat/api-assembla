@@ -9,6 +9,10 @@ my $api = API::Assembla->new(
 );
 
 my $data = $api->get_spaces;
-cmp_ok('testinbeanstalk2g', 'eq', $data->{'third-level-domain'}, 'content');
+cmp_ok(2, '==', scalar(keys($data)), '2 spaces');
+ok(exists($data->{PRG}), 'PRG space');
+
+my $space = $data->{PRG};
+cmp_ok('PRG', 'eq', $space->name, 'space name');
 
 done_testing;
