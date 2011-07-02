@@ -1,6 +1,7 @@
 package API::Assembla;
 use Moose;
 
+use DateTime::Format::ISO8601;
 use LWP::UserAgent;
 use URI;
 use XML::XPath;
@@ -125,6 +126,7 @@ sub get_spaces {
 
         $objects{$name} = API::Assembla::Space->new(
             id => $space->findvalue('id').'',
+            created_at => DateTime::Format::ISO8601->parse_datetime($space->findvalue('created-at').''),
             name => $name,
             description => $space->findvalue('description').'',
         );

@@ -5,6 +5,17 @@ use Moose;
 
 =head1 SYNOPSIS
 
+=attr created_at
+
+The DateTime representing the time at which this space was created.
+
+=cut
+
+has 'created_at' => (
+    is => 'rw',
+    isa => 'DateTime'
+);
+
 =attr description
 
 The space's description
