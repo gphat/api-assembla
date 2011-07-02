@@ -16,7 +16,6 @@ use API::Assembla::Ticket;
     use API::Assembla;
 
     my $api = API::Asembla->new(
-        account_name => $accountname',
         username => $username,
         password => $password
     );
