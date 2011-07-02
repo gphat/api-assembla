@@ -65,6 +65,13 @@ Get Tickets for a space information.
 
 Get Tickets for a space information.
 
+# UNDER CONSTRUCTION
+
+API::Assembla is not feature-complete.  It's a starting point.  The Assembla
+API has LOTS of stuff that this module does not yet contain.  These features
+will be added as needed by the author or as gifted by thoughtful folks who
+write patches! ;)
+
 # AUTHOR
 
 Cory G Watson <gphat@cpan.org>
