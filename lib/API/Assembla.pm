@@ -98,18 +98,15 @@ sub get_space {
 
     my $xp = XML::XPath->new(xml => $resp->decoded_content);
 
-    my $spaces = $xp->find('/space');
-    my $space = $spaces->pop;
+    my $space = $xp->find('/space')->pop;
     my $name = $space->findvalue('name')."";
 
-    my $obj = API::Assembla::Space->new(
+    return API::Assembla::Space->new(
         id => $space->findvalue('id').'',
         created_at => DateTime::Format::ISO8601->parse_datetime($space->findvalue('created-at').''),
         name => $name,
         description => $space->findvalue('description').'',
     );
-
-    return $obj;
 }
 
 =method get_spaces
@@ -147,7 +144,37 @@ sub get_spaces {
     return \%objects;
 }
 
-=method get_tickets ($id)
+=method get_tickets ($space_id, $number)
+
+Get Tickets for a space information.
+
+=cut
+
+sub get_ticket {
+    my ($self, $id, $number) = @_;
+
+    my $req = $self->make_req('/spaces/'.$id.'/tickets/'.$number);
+    my $resp = $self->_client->request($req);
+
+    # print STDERR $resp->decoded_content;
+
+    my $xp = XML::XPath->new(xml => $resp->decoded_content);
+
+    my $ticket = $xp->find('/ticket')->pop;
+
+    return API::Assembla::Ticket->new(
+        id => $ticket->findvalue('id').'',
+        created_on => DateTime::Format::ISO8601->parse_datetime($ticket->findvalue('created-on').''),
+        description => $ticket->findvalue('description').'',
+        number => $ticket->findvalue('number').'',
+        priority => $ticket->findvalue('priority').'',
+        status_name => $ticket->findvalue('status-name').'',
+        summary => $ticket->findvalue('summary').''
+    );
+}
+
+
+=method get_tickets ($space_id)
 
 Get Tickets for a space information.
 
@@ -174,6 +201,8 @@ sub get_tickets {
             id => $id,
             created_on => DateTime::Format::ISO8601->parse_datetime($ticket->findvalue('created-on').''),
             description => $ticket->findvalue('description').'',
+            number => $ticket->findvalue('number').'',
+            priority => $ticket->findvalue('priority').'',
             status_name => $ticket->findvalue('status-name').'',
             summary => $ticket->findvalue('summary').''
         );

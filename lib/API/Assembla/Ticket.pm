@@ -55,6 +55,28 @@ has 'name' => (
     isa => 'Str'
 );
 
+=attr number
+
+The ticket's number.
+
+=cut
+
+has 'number' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+=attr priority
+
+The ticket's priority.
+
+=cut
+
+has 'priority' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
 =attr status_name
 
 The ticket's status_name.
