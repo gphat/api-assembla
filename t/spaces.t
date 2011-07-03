@@ -1,6 +1,10 @@
 use Test::More;
 use strict;
 
+if(!$ENV{'TEST_ASSEMBLA_PASS'}) {
+    plan skip_all => 'This test is useless unless you are the author';
+}
+
 use API::Assembla;
 
 my $api = API::Assembla->new(
